@@ -5,12 +5,21 @@ let year=document.getElementById("year");
 
 const today =new Date();
   
-const weekDays=["Sunday","Monday","Thuesday","Wednesday","Thursday","Friday","saturday"]
-const allMonths= ["January","February","March","April","May","June","July","August","September","October","November","December"];
-date.innerHTML=today.getDate();
+let options={
+    calander:"ethopic",
+    day:"numeric",
+    month:"long",
+    year:"numeric"
+};
 
-day.innerHTML=weekDays[today.getDay()]
+let parts= new Intl.DateTimeFormat(
+    "en-ET-u-ca-ethiopic",options).formatToParts(today);
 
-month.innerHTML=allMonths[today.getMonth()]
+   
+    date.innerHTML=parts.find(p => p.type === "day").value
+    month.innerHTML=parts.find(p => p.type === "month").value
+    year.innerHTML=parts.find(p => p.type === "year").value
 
-year.innerHTML=today.getFullYear();
+     day.innerHTML=new Intl.DateTimeFormat("en-US",{
+        weekday:"long"
+     }).format(today);
